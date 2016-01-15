@@ -1,0 +1,10 @@
+# IntellijIDEA
+.idea/
+*.iml
+
+# Eclipse
+.settings
+.classpath
+
+# build system
+target/

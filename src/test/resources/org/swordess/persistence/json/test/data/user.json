@@ -1,0 +1,10 @@
+{
+  "idGenerator": 2,
+  "rows": [
+    {
+      "id": 1,
+      "username": "Foo",
+      "age": 20
+    }
+  ]
+}
