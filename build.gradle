@@ -16,10 +16,14 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.0.1"
     }
 }
 
 apply plugin: 'kotlin'
+
+apply plugin: 'jacoco'
+apply plugin: 'com.github.kt3k.coveralls'
 
 repositories {
     mavenCentral()
@@ -35,4 +39,11 @@ dependencies {
 
     testCompile "ch.qos.logback:logback-classic:$logback_version"
     testCompile "junit:junit:$junit_version"
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true // coveralls plugin depends on xml format report
+        html.enabled = true
+    }
 }
