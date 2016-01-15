@@ -83,7 +83,7 @@ class DirectoryWatcher(dir: String, vararg val events: WatchEvent.Kind<*>) : Run
                     continue
                 }
 
-                val filename = (event as WatchEvent<Path>).context()
+                val filename = event.context() as Path
 
                 // assume there is no modification after null check
                 if (filenameExtensionInclude == null || filename.toString().endsWith(filenameExtensionInclude as String)) {

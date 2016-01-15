@@ -44,7 +44,7 @@ public class JsonTable<E>(val metadata: JsonEntityMetadata, idGenerator: Long = 
             AtomicLong(idGenerator)
         } else throw IllegalArgumentException("idGenerator must be greater than or equal to 1")
 
-        this.rows = rows.mapTo(ArrayList(), { Gson().fromJson<E>(it, metadata.belongingClass.java as Class<E>) })
+        this.rows = rows.mapTo(ArrayList(), { Gson().fromJson<E>(it, metadata.belongingClass.java) })
     }
 
     private fun nextId(): Long {

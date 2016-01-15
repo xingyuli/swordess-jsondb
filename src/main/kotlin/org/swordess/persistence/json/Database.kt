@@ -88,7 +88,9 @@ class Database {
 
     operator fun <T : Any> get(entityType: KClass<T>): JsonTable<T> {
         val metadata = getMetadata(entityType)
-        return filenameToTable.computeIfAbsent(metadata.filename) { load<Any>(metadata) } as JsonTable<T>
+
+        @Suppress("UNCHECKED_CAST")
+        return filenameToTable.getOrPut(metadata.filename, { load<Any>(metadata) }) as JsonTable<T>
     }
 
     private fun <T> load(metadata: JsonEntityMetadata): JsonTable<T> {
