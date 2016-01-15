@@ -41,6 +41,10 @@ dependencies {
     testCompile "junit:junit:$junit_version"
 }
 
+sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+}
+
 jacocoTestReport {
     reports {
         xml.enabled = true // coveralls plugin depends on xml format report
