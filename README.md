@@ -1,8 +1,9 @@
 # jsondb
 Persistence library including basic CRUD operations using json.
 
-[![Build Status](https://travis-ci.org/xingyuli/jsondb.svg?branch=master)](https://travis-ci.org/xingyuli/jsondb)
-[![Coverage Status](https://coveralls.io/repos/xingyuli/jsondb/badge.svg?branch=master&service=github)](https://coveralls.io/github/xingyuli/jsondb?branch=master)
+[![Build Status](https://img.shields.io/travis/xingyuli/jsondb/master.svg)](https://travis-ci.org/xingyuli/jsondb)
+[![Coverage Status](https://img.shields.io/coveralls/xingyuli/jsondb/master.svg)](https://coveralls.io/github/xingyuli/jsondb?branch=master)
+[![Semantic Version](https://img.shields.io/sem%20ver/v2.0.0.png)](http://semver.org/spec/v2.0.0.html)
 
 #### Documentation coming soon!
 

@@ -96,8 +96,6 @@ class JsonDBTest {
 
     @Test
     fun testSave() {
-        User::class.java.kotlin
-
         jsondb.save(User(username = "Bar", age = 40))
 
         assertEquals(
