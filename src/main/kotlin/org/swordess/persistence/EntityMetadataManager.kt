@@ -42,24 +42,20 @@ class EntityMetadataManager {
     lateinit var packagesToScan: List<String>
 
     fun init() {
-        scanEntityClasses().forEach {
-            if (!metadata.containsKey(it)) {
-                metadata.put(it, JsonEntityMetadata(it))
-            }
-        }
+        metadata.putAll(scanEntityClasses().map { it to JsonEntityMetadata(it) })
         logger.info("scanned metadata\n{}", metadata.entries.joinToString(",\n"))
     }
 
     operator fun get(entityType: KClass<*>): EntityMetadata? = metadata[entityType]
 
     private fun scanEntityClasses(): List<KClass<*>> {
-        val entityClasses = ArrayList<KClass<*>>()
-        packagesToScan.forEach {
-            Classes.underPackage(it, { isJsonEntityClass(it) }).forEach { entityClasses.add(it) }
+        return ArrayList<KClass<*>>().apply {
+            packagesToScan.forEach {
+                addAll(Classes.underPackage(it, { isJsonEntityClass(it) }))
+            }
         }
-        return entityClasses
     }
 
-    private fun isJsonEntityClass(c: KClass<*>) = c.java.isAnnotationPresent(JsonEntity::class.java)
+    private fun isJsonEntityClass(c: KClass<*>): Boolean = c.java.isAnnotationPresent(JsonEntity::class.java)
 
 }

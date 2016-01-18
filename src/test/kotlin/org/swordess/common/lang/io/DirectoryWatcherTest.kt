@@ -40,7 +40,7 @@ class DirectoryWatcherTest {
     fun setUp() {
         val file = File("build/tmp/test/${javaClass.simpleName}")
         if (!file.exists()) {
-            file.mkdir()
+            file.mkdirs()
         }
         dir = file.absolutePath
 

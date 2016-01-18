@@ -47,13 +47,11 @@ public class JsonTable<E>(val metadata: JsonEntityMetadata, idGenerator: Long = 
         this.rows = rows.mapTo(ArrayList(), { Gson().fromJson<E>(it, metadata.belongingClass.java) })
     }
 
-    private fun nextId(): Long {
-        return idGenerator.andIncrement
-    }
+    private fun nextId(): Long = idGenerator.andIncrement
 
-    fun isEmpty() = rows.isEmpty()
+    fun isEmpty(): Boolean = rows.isEmpty()
 
-    fun size() = rows.size
+    fun size(): Int = rows.size
 
     fun add(e: E): Boolean {
         val id = metadata.idMetadata.getter(e)
@@ -76,12 +74,10 @@ public class JsonTable<E>(val metadata: JsonEntityMetadata, idGenerator: Long = 
         return false
     }
 
-    fun remove(e: E) = rows.remove(e)
+    fun remove(e: E): Boolean = rows.remove(e)
 
-    fun asTransfer() = JsonTableTransfer(idGenerator.get(), rows)
+    fun asTransfer(): JsonTableTransfer = JsonTableTransfer(idGenerator.get(), rows)
 
-    override fun iterator(): Iterator<E> {
-        return rows.iterator()
-    }
+    override fun iterator(): Iterator<E> = rows.iterator()
 
 }

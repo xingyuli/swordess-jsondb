@@ -74,7 +74,7 @@ class JsonDBTest {
     @Before
     fun setUp() {
         JsonDBTest.copySourceToDestination()
-        jsondb = with(JsonDB()) {
+        jsondb = JsonDB().apply {
             val manager = EntityMetadataManager()
             manager.packagesToScan = listOf("org.swordess.persistence.json.test.model")
             manager.init()
@@ -83,8 +83,6 @@ class JsonDBTest {
             database.entityMetadataManager = manager
             database.dataLocation = JsonDBTest.destinationDataLocation.absolutePath
             database.init()
-
-            this@with
         }
     }
 

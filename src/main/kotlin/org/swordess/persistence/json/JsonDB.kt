@@ -109,6 +109,6 @@ class JsonDB : DB {
         database.persist(table)
     }
 
-    private fun isPersistent(obj: Any) = database.getMetadata(obj.javaClass.kotlin).idMetadata.getter(obj) != null
+    private fun isPersistent(obj: Any): Boolean = database.getMetadata(obj.javaClass.kotlin).idMetadata.getter(obj) != null
 
 }

@@ -130,7 +130,7 @@ class Database {
         var lock: ReentrantReadWriteLock? = locks[entityType]
         if (lock == null) {
             lock = ReentrantReadWriteLock()
-            locks.put(entityType, lock)
+            locks[entityType] = lock
         }
         return lock
     }

@@ -33,7 +33,7 @@ class JsonEntityMetadata(override val belongingClass: KClass<*>) : EntityMetadat
     val filename = determineFilename(belongingClass)
     val idMetadata = determineIdMetadata(belongingClass)
 
-    private fun determineFilename(belongingClass: KClass<*>) =
+    private fun determineFilename(belongingClass: KClass<*>): String =
             belongingClass.java.getAnnotation(JsonEntity::class.java).filename
 
     private fun determineIdMetadata(belongingClass: KClass<*>): IdMetadata {
