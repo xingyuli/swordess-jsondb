@@ -53,6 +53,10 @@ sourceSets {
     main.java.srcDirs += 'src/main/kotlin'
 }
 
+jacoco {
+    toolVersion = "0.7.5.201505241946"
+}
+
 jacocoTestReport {
     reports {
         xml.enabled = true // coveralls plugin depends on xml format report
