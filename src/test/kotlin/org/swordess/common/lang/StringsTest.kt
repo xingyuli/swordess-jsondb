@@ -25,8 +25,8 @@
 package org.swordess.common.lang
 
 import org.junit.Assert.assertArrayEquals
-import org.junit.Assert.assertEquals
 import org.junit.Test
+import kotlin.test.assertEquals
 
 class StringsTest {
 

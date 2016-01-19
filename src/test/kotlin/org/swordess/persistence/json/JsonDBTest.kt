@@ -25,13 +25,13 @@
 package org.swordess.persistence.json
 
 import org.junit.After
-import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.swordess.persistence.EntityMetadataManager
 import org.swordess.persistence.json.test.model.User
 import java.io.File
 import kotlin.reflect.KClass
+import kotlin.test.assertEquals
 
 class JsonDBTest {
 

@@ -29,7 +29,6 @@ import org.junit.Before
 import org.junit.Test
 import java.io.File
 import java.nio.file.StandardWatchEventKinds
-import java.util.Date
 
 class DirectoryWatcherTest {
 
@@ -55,10 +54,7 @@ class DirectoryWatcherTest {
     @Test(timeout = 30000)
     fun testHandlerShouldBeInvokedWhenInterestedEventOccurred() {
         var invoked = false
-        watcher.addHandler {
-            invoked = true
-            println("${Date()} handler was invoked: ${it.change}")
-        }
+        watcher.addHandler { invoked = true }
 
         File(dir, "testCreate").createNewFile()
 

@@ -24,12 +24,11 @@
 
 package org.swordess.common.lang
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.swordess.common.lang.test.Marker
 import org.swordess.common.lang.test.foo.MyFoo
 import org.swordess.common.lang.test.foo.bar.MyBar
+import kotlin.test.assertEquals
 
 class ClassesTest {
 
@@ -37,7 +36,7 @@ class ClassesTest {
     fun testUnderPackageShouldFindMatchesIncludingNestedPackages() {
         val found = Classes.underPackage("org.swordess.common.lang.test.foo", { Marker::class.java.isAssignableFrom(it.java) })
         assertEquals(2, found.size)
-        assertTrue(found.contains(MyFoo::class) && found.contains(MyBar::class))
+        assert(MyFoo::class in found && MyBar::class in found)
     }
 
 }
