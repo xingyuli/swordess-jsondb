@@ -70,8 +70,8 @@ class Database {
         watcher.filenameExtensionInclude = JSON_FILE_EXTENSION
         watcher.addHandler({ evt ->
             val filenameWithoutExtension = evt.change.fileName.toString().withoutSuffix(JSON_FILE_EXTENSION)
-            if (filenameToTable.containsKey(filenameWithoutExtension)) {
-                filenameToTable.remove(filenameWithoutExtension)
+            if (filenameWithoutExtension in filenameToTable) {
+                filenameToTable -= filenameWithoutExtension
                 logger.info("cache for {} has been discarded", evt.change)
             }
         })
@@ -118,11 +118,7 @@ class Database {
         // 3. the next call for this table needs a fresh loading
         lockFor(table.metadata.belongingClass.java).writeLock().withLock {
             val outFile = File(resourceNameOf(table.metadata).resourceNameAsFilename())
-            try {
-                outFile.outputStream().writer(charset).use { writer -> gson.toJson(table.asTransfer(), writer) }
-            } catch (e: IOException) {
-                throw RuntimeException(e)
-            }
+            outFile.outputStream().writer(charset).use { writer -> gson.toJson(table.asTransfer(), writer) }
         }
     }
 

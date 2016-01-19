@@ -1,7 +1,6 @@
 
 buildscript {
     ext.kotlin_version = '1.0.0-beta-4584'
-    ext.commons_lang3_version = '3.4'
     ext.google_gson_version = '2.5'
     ext.google_guava_version = '19.0'
     ext.slf4j_api_version = '1.7.13'
@@ -30,7 +29,7 @@ apply plugin: 'kotlin'
 apply plugin: 'maven-publish'
 
 group 'org.swordess.persistence'
-version '0.1.1'
+version '0.1.2'
 
 repositories {
     jcenter()
@@ -39,7 +38,6 @@ repositories {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     // compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    compile "org.apache.commons:commons-lang3:$commons_lang3_version"
     compile "com.google.code.gson:gson:$google_gson_version"
     compile "com.google.guava:guava:$google_guava_version"
     compile "org.slf4j:slf4j-api:$slf4j_api_version"

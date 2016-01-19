@@ -24,7 +24,6 @@
 
 package org.swordess.persistence.json
 
-import org.apache.commons.lang3.StringUtils
 import java.lang.reflect.Method
 
 // TODO make use of kotlin-reflection api
@@ -38,18 +37,18 @@ class IdMetadata(val getter: Method) {
         setter = determineSetter()
     }
 
-    private fun determinePropertyName(getter: Method) =
+    private fun determinePropertyName(getter: Method): String =
             if (getter.name.startsWith("get")) {
-                StringUtils.uncapitalize(getter.name.substring(3))
+                getter.name.substring(3).decapitalize()
             } else if (getter.name.startsWith("is")) {
-                StringUtils.uncapitalize(getter.name.substring(2))
+                getter.name.substring(2).decapitalize()
             } else {
                 throw RuntimeException("unable to determine property name for $getter")
             }
 
-    private fun determineSetter() =
+    private fun determineSetter(): Method =
             try {
-                getter.declaringClass.getDeclaredMethod("set" + StringUtils.capitalize(propertyName),
+                getter.declaringClass.getDeclaredMethod("set" + propertyName.capitalize(),
                         getter.returnType)
             } catch (e: NoSuchMethodException) {
                 throw RuntimeException("no setter was found for property $propertyName, please add a setter")

@@ -37,12 +37,9 @@ class JsonEntityMetadata(override val belongingClass: KClass<*>) : EntityMetadat
             belongingClass.java.getAnnotation(JsonEntity::class.java).filename
 
     private fun determineIdMetadata(belongingClass: KClass<*>): IdMetadata {
-        for (method in belongingClass.java.methods) {
-            if (method.isAnnotationPresent(Id::class.java)) {
-                return IdMetadata(method)
-            }
-        }
-        throw RuntimeException("Annotation of type ${Id::class.java.name} should present at least once in ${belongingClass.java.name}")
+        val idGetter = belongingClass.java.methods.firstOrNull { it.isAnnotationPresent(Id::class.java) }
+                ?: throw RuntimeException("Annotation of type ${Id::class.java.name} should present at least once in ${belongingClass.java.name}")
+        return IdMetadata(idGetter)
     }
 
     override fun toString() = "{\n\tfilename = $filename,\n\tidProperty = $idMetadata\n}"

@@ -37,7 +37,7 @@ public class JsonTable<E>(val metadata: JsonEntityMetadata, idGenerator: Long = 
     // get() indicates the next id
     private val idGenerator: AtomicLong
 
-    internal val rows: MutableList<E>
+    private val rows: MutableList<E>
 
     init {
         this.idGenerator = if (idGenerator >= 1) {

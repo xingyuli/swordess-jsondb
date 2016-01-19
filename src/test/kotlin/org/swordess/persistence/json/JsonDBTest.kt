@@ -31,8 +31,6 @@ import org.junit.Test
 import org.swordess.persistence.EntityMetadataManager
 import org.swordess.persistence.json.test.model.User
 import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
 import kotlin.reflect.KClass
 
 class JsonDBTest {
@@ -54,9 +52,9 @@ class JsonDBTest {
 
         fun copySourceToDestination() {
             sourceDataLocation.listFiles().forEach {
-                val inStream = it.inputStream() as FileInputStream
-                val outStream = File(destinationDataLocation, it.name).outputStream() as FileOutputStream
-                inStream.channel.transferTo(0, inStream.available().toLong(), outStream.channel)
+                val inStream = it.inputStream()
+                val outStream = File(destinationDataLocation, it.name).outputStream()
+                inStream.copyTo(outStream)
                 inStream.close()
                 outStream.close()
             }

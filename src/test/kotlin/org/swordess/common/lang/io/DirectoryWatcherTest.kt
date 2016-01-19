@@ -38,14 +38,13 @@ class DirectoryWatcherTest {
 
     @Before
     fun setUp() {
-        val file = File("build/tmp/test/${javaClass.simpleName}")
-        if (!file.exists()) {
-            file.mkdirs()
-        }
-        dir = file.absolutePath
+        dir = File("build/tmp/test/${javaClass.simpleName}").apply {
+            if (!exists()) {
+                mkdirs()
+            }
+        }.absolutePath
 
-        watcher = DirectoryWatcher(dir, StandardWatchEventKinds.ENTRY_CREATE)
-        watcher.init()
+        watcher = DirectoryWatcher(dir, StandardWatchEventKinds.ENTRY_CREATE).apply { init() }
     }
 
     @After

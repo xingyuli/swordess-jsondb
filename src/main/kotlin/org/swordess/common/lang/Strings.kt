@@ -26,21 +26,18 @@ package org.swordess.common.lang
 
 import java.io.File
 import java.io.InputStream
-import java.io.UnsupportedEncodingException
 import java.net.URL
 import java.net.URLDecoder
 
 fun String?.withPrefix(prefix: String) =
         if (this == null || isEmpty()) prefix else if (startsWith(prefix)) this else prefix + this
 
-fun String?.withoutPrefix(prefix: String) =
-        if (this == null || isEmpty()) "" else if (!startsWith(prefix)) this else substring(prefix.length)
+fun String?.withoutPrefix(prefix: String) = if (this == null) "" else removePrefix(prefix)
 
 fun String?.withSuffix(suffix: String) =
         if (this == null || isEmpty()) suffix else if (endsWith(suffix)) this else this + suffix
 
-fun String?.withoutSuffix(suffix: String) =
-        if (this == null || isEmpty()) "" else if (!endsWith(suffix)) this else substring(0, indexOf(suffix))
+fun String?.withoutSuffix(suffix: String) = if (this == null) "" else removeSuffix(suffix)
 
 fun String.resourceNameAsStream(): InputStream {
     val file = File(this)
@@ -81,12 +78,8 @@ fun String.resourceNameAsFilename(): String {
         return this
     }
 
-    val url = this.resourceNameAsURL()
-    try {
-        return URLDecoder.decode(url.file, "UTF-8")
-    } catch (e: UnsupportedEncodingException) {
-        throw RuntimeException(e)
-    }
+    val url = resourceNameAsURL()
+    return URLDecoder.decode(url.file, "UTF-8")
 }
 
 fun Array<String>.filterNotEmpty() = if (isEmpty()) this else filter { it.isNotEmpty() }.toTypedArray()
