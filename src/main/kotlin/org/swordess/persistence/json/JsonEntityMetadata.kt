@@ -27,21 +27,30 @@ package org.swordess.persistence.json
 import org.swordess.persistence.EntityMetadata
 import org.swordess.persistence.Id
 import kotlin.reflect.KClass
+import kotlin.reflect.KMutableProperty
+import kotlin.reflect.jvm.javaMethod
+import kotlin.reflect.memberProperties
 
 class JsonEntityMetadata(override val belongingClass: KClass<*>) : EntityMetadata(belongingClass) {
 
     val filename = determineFilename(belongingClass)
-    val idMetadata = determineIdMetadata(belongingClass)
+    val idProperty = determineIdProperty(belongingClass)
 
     private fun determineFilename(belongingClass: KClass<*>): String =
             belongingClass.java.getAnnotation(JsonEntity::class.java).filename
 
-    private fun determineIdMetadata(belongingClass: KClass<*>): IdMetadata {
-        val idGetter = belongingClass.java.methods.firstOrNull { it.isAnnotationPresent(Id::class.java) }
-                ?: throw RuntimeException("Annotation of type ${Id::class.java.name} should present at least once in ${belongingClass.java.name}")
-        return IdMetadata(idGetter)
+    private fun determineIdProperty(belongingClass: KClass<*>): KMutableProperty<*> {
+        val idProperty = belongingClass.memberProperties
+                .firstOrNull { it.getter.javaMethod?.isAnnotationPresent(Id::class.java) ?: false }
+        idProperty ?: throw RuntimeException("Annotation of type ${Id::class.java.name} should present at least once in ${belongingClass.java.name}")
+
+        return if (idProperty is KMutableProperty<*>) {
+            idProperty
+        } else {
+            throw RuntimeException("${idProperty.name} must be mutable in ${belongingClass.java.name}")
+        }
     }
 
-    override fun toString() = "{\n\tfilename = $filename,\n\tidProperty = $idMetadata\n}"
+    override fun toString() = "{\n\tfilename = $filename,\n\tidProperty = ${idProperty.name}\n}"
 
 }

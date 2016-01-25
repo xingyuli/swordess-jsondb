@@ -54,11 +54,11 @@ public class JsonTable<E>(val metadata: JsonEntityMetadata, idGenerator: Long = 
     fun size(): Int = rows.size
 
     fun add(e: E): Boolean {
-        val id = metadata.idMetadata.getter(e)
+        val id = metadata.idProperty.call(e)
         if (id == null) {
             // inject id if not set
             // TODO ignore id passed in?
-            metadata.idMetadata.setter(e, nextId())
+            metadata.idProperty.setter.call(e, nextId())
         }
         return rows.add(e)
     }

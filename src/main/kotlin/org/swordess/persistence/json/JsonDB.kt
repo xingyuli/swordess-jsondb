@@ -51,7 +51,7 @@ class JsonDB : DB {
         val metadata = database.getMetadata(entityType)
 
         val table = database[entityType]
-        return table.firstOrNull { id == metadata.idMetadata.getter(it) }
+        return table.firstOrNull { id == metadata.idProperty.call(it) }
     }
 
     // TODO refactoring - move up to interface CrudRepository?
@@ -67,10 +67,10 @@ class JsonDB : DB {
 
     private fun update0(entity: Any) {
         val metadata = database.getMetadata(entity.javaClass.kotlin)
-        val id = metadata.idMetadata.getter(entity)
+        val id = metadata.idProperty.call(entity)
 
         val table = database[entity.javaClass.kotlin]
-        table.firstOrNull { id == metadata.idMetadata.getter(it) }?.let {
+        table.firstOrNull { id == metadata.idProperty.call(it) }?.let {
             table.replace(it, entity)
             database.persist(table)
         }
@@ -80,12 +80,12 @@ class JsonDB : DB {
         val metadata = database.getMetadata(entityType)
 
         val table = database[entityType]
-        table.firstOrNull { id == metadata.idMetadata.getter(it) }?.let {
+        table.firstOrNull { id == metadata.idProperty.call(it) }?.let {
             table.remove(it)
             database.persist(table)
         }
     }
 
-    private fun isPersistent(obj: Any): Boolean = database.getMetadata(obj.javaClass.kotlin).idMetadata.getter(obj) != null
+    private fun isPersistent(obj: Any): Boolean = database.getMetadata(obj.javaClass.kotlin).idProperty.call(obj) != null
 
 }
