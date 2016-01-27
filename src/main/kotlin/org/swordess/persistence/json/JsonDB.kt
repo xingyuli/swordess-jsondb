@@ -24,21 +24,18 @@
 
 package org.swordess.persistence.json
 
-import org.slf4j.LoggerFactory
 import org.swordess.persistence.DB
 import java.util.ArrayList
 import kotlin.reflect.KClass
 
 class JsonDB : DB {
 
-    private val logger = LoggerFactory.getLogger(javaClass)
+//    private val logger = LoggerFactory.getLogger(javaClass)
 
     // MUST be initialized by client code
     lateinit var database: Database
 
-    override fun <T : Any> save(obj: T): T = if (isPersistent(obj)) { update0(obj); obj } else save0(obj)
-
-    private fun <T : Any> save0(obj: T): T {
+    override fun <T : Any> save(obj: T): T {
         val table: JsonTable<T> = database[obj.javaClass.kotlin]
         table.add(obj)
 
@@ -54,18 +51,10 @@ class JsonDB : DB {
         return table.firstOrNull { id == metadata.idProperty.call(it) }
     }
 
-    // TODO refactoring - move up to interface CrudRepository?
-    fun <T : Any> findAll(entityType: KClass<T>): List<T> = ArrayList<T>().apply { addAll(database[entityType]) }
+    override fun <T : Any> findAll(entityType: KClass<T>): List<T> =
+            ArrayList<T>().apply { addAll(database[entityType]) }
 
     override fun update(entity: Any) {
-        if (!isPersistent(entity)) {
-            save0(entity)
-        } else {
-            update0(entity)
-        }
-    }
-
-    private fun update0(entity: Any) {
         val metadata = database.getMetadata(entity.javaClass.kotlin)
         val id = metadata.idProperty.call(entity)
 
@@ -85,7 +74,5 @@ class JsonDB : DB {
             database.persist(table)
         }
     }
-
-    private fun isPersistent(obj: Any): Boolean = database.getMetadata(obj.javaClass.kotlin).idProperty.call(obj) != null
 
 }

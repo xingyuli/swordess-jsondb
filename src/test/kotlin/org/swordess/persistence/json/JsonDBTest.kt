@@ -32,6 +32,7 @@ import org.swordess.persistence.json.test.model.User
 import java.io.File
 import kotlin.reflect.KClass
 import kotlin.test.assertEquals
+import kotlin.test.fail
 
 class JsonDBTest {
 
@@ -43,7 +44,6 @@ class JsonDBTest {
         val destinationDataLocation: File
 
         init {
-            // TODO refactoring - extract class e.g., org.swordess.test.gradle.GradleTest
             destinationDataLocation = File("build/tmp/test/${JsonDBTest::class.java.simpleName}/data")
             if (!destinationDataLocation.exists()) {
                 destinationDataLocation.mkdirs()
@@ -146,6 +146,17 @@ class JsonDBTest {
   "idGenerator": 2,
   "rows": []
 }""", dataFileContent(User::class))
+    }
+
+    @Test
+    fun testExceptionShouldBeThrownWhenManualIdHasBeenSet() {
+        val user = User(2, "Foo", 30)
+        try {
+            jsondb.save(user)
+            fail("exception is expected")
+        } catch (e: RuntimeException) {
+            assertEquals("row with manual id should not be added: 2, call replace instead", e.message)
+        }
     }
 
 }

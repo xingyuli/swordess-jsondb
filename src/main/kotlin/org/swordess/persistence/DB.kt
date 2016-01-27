@@ -32,6 +32,8 @@ interface DB {
 
     fun <T : Any> findOne(entityType: KClass<T>, id: Long): T?
 
+    fun <T : Any> findAll(entityType: KClass<T>): List<T>
+
     fun update(entity: Any)
 
     fun <T : Any> remove(entityType: KClass<T>, id: Long)
