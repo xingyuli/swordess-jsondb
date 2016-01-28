@@ -3,7 +3,7 @@ buildscript {
     ext.kotlin_version = '1.0.0-beta-4584'
     ext.google_gson_version = '2.5'
     ext.google_guava_version = '19.0'
-    ext.slf4j_api_version = '1.7.13'
+    ext.slf4j_api_version = '1.7.14'
 
     ext.logback_version = '1.1.3'
     ext.junit_version = '4.12'
