@@ -1,4 +1,4 @@
-# jsondb
+# swordess-jsondb
 Persistence library including basic CRUD operations using json.
 
 [![Build Status](https://travis-ci.org/xingyuli/swordess-jsondb.svg?branch=master)](https://travis-ci.org/xingyuli/swordess-jsondb)
