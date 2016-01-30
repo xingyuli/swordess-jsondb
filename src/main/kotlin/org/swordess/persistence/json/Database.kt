@@ -28,8 +28,8 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import org.slf4j.LoggerFactory
 import org.swordess.common.lang.io.DirectoryWatcher
-import org.swordess.common.lang.resourceNameAsFilename
-import org.swordess.common.lang.resourceNameAsStream
+import org.swordess.common.lang.io.resourceNameAsFilename
+import org.swordess.common.lang.io.resourceNameAsStream
 import org.swordess.common.lang.withSuffix
 import org.swordess.common.lang.withoutSuffix
 import org.swordess.persistence.EntityMetadataManager
