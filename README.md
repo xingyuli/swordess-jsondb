@@ -1,9 +1,9 @@
 # jsondb
 Persistence library including basic CRUD operations using json.
 
-[![Build Status](https://img.shields.io/travis/xingyuli/jsondb/master.svg)](https://travis-ci.org/xingyuli/jsondb)
-[![Coverage Status](https://img.shields.io/coveralls/xingyuli/jsondb/master.svg)](https://coveralls.io/github/xingyuli/jsondb?branch=master)
-[![VersionEye](https://www.versioneye.com/user/projects/569c8922ec6e6a000a15f41e/badge.svg)](https://www.versioneye.com/user/projects/569c8922ec6e6a000a15f41e?child=summary)
+[![Build Status](https://img.shields.io/travis/xingyuli/swordess-jsondb/master.svg)](https://travis-ci.org/xingyuli/swordess-jsondb)
+[![Coverage Status](https://img.shields.io/coveralls/xingyuli/swordess-jsondb/master.svg)](https://coveralls.io/github/xingyuli/swordess-jsondb?branch=master)
+[![VersionEye](https://www.versioneye.com/user/projects/56acc1132008b1000a30e24c/badge.svg)](https://www.versioneye.com/user/projects/56acc1132008b1000a30e24c?child=summary)
 [![Semantic Version](https://img.shields.io/sem%20ver/v2.0.0.png)](http://semver.org/spec/v2.0.0.html)
 
 ### Before reaching 1.0.0.RELEASE, I planned to
