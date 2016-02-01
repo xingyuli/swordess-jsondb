@@ -28,7 +28,7 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import org.slf4j.LoggerFactory
 import org.swordess.common.lang.io.DirectoryWatcher
-import org.swordess.common.lang.io.resourceNameAsFilename
+import org.swordess.common.lang.io.resourceNameAsFileAbsolutePath
 import org.swordess.common.lang.io.resourceNameAsStream
 import org.swordess.common.lang.withSuffix
 import org.swordess.common.lang.withoutSuffix
@@ -65,7 +65,7 @@ class Database {
     var charset = DEFAULT_CHARSET
 
     fun init() {
-        watcher = DirectoryWatcher(dataLocation.withoutSuffix("/").resourceNameAsFilename(),
+        watcher = DirectoryWatcher(dataLocation.withoutSuffix("/").resourceNameAsFileAbsolutePath(),
                 StandardWatchEventKinds.ENTRY_MODIFY, StandardWatchEventKinds.ENTRY_DELETE)
         watcher.filenameExtensionInclude = JSON_FILE_EXTENSION
         watcher.addHandler({ evt ->
@@ -117,7 +117,7 @@ class Database {
         //    so that the cached version of this table will be removed
         // 3. the next call for this table needs a fresh loading
         lockFor(table.metadata.belongingClass.java).writeLock().withLock {
-            val outFile = File(resourceNameOf(table.metadata).resourceNameAsFilename())
+            val outFile = File(resourceNameOf(table.metadata).resourceNameAsFileAbsolutePath())
             outFile.outputStream().writer(charset).use { writer -> gson.toJson(table.asTransfer(), writer) }
         }
     }
