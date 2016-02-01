@@ -1,8 +1,8 @@
-# jsondb
+# swordess-jsondb
 Persistence library including basic CRUD operations using json.
 
-[![Build Status](https://img.shields.io/travis/xingyuli/swordess-jsondb/master.svg)](https://travis-ci.org/xingyuli/swordess-jsondb)
-[![Coverage Status](https://img.shields.io/coveralls/xingyuli/swordess-jsondb/master.svg)](https://coveralls.io/github/xingyuli/swordess-jsondb?branch=master)
+[![Build Status](https://travis-ci.org/xingyuli/swordess-jsondb.svg?branch=master)](https://travis-ci.org/xingyuli/swordess-jsondb)
+[![Coverage Status](https://coveralls.io/repos/github/xingyuli/swordess-jsondb/badge.svg?branch=master)](https://coveralls.io/github/xingyuli/swordess-jsondb?branch=master)
 [![VersionEye](https://www.versioneye.com/user/projects/56aecc7f2713f9000ebb2835/badge.svg)](https://www.versioneye.com/user/projects/56aecc7f2713f9000ebb2835?child=summary)
 [![Semantic Version](https://img.shields.io/sem%20ver/v2.0.0.png)](http://semver.org/spec/v2.0.0.html)
 
