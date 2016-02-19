@@ -24,25 +24,35 @@
 
 package org.swordess.persistence.json
 
-import org.swordess.persistence.EntityMetadata
-import org.swordess.persistence.Id
-import kotlin.reflect.KClass
+import java.lang.reflect.Method
 
-class JsonEntityMetadata(override val belongingClass: KClass<*>) : EntityMetadata(belongingClass) {
+class IdMetadata(val getter: Method) {
 
-    val filename = determineFilename(belongingClass)
-    val idMetadata = determineIdMetadata(belongingClass)
+    val propertyName: String
+    val setter: Method
 
-    private fun determineFilename(belongingClass: KClass<*>): String =
-            belongingClass.java.getAnnotation(JsonEntity::class.java).filename
-
-    private fun determineIdMetadata(belongingClass: KClass<*>): IdMetadata {
-        val idGetter = belongingClass.java.methods.firstOrNull { it.isAnnotationPresent(Id::class.java) }
-                ?: throw RuntimeException("Annotation of type ${Id::class.java.name} should present at least once in ${belongingClass.java.name}")
-        return IdMetadata(idGetter)
+    init {
+        propertyName = determinePropertyName(getter)
+        setter = determineSetter()
     }
 
-    override fun toString() = "{\n\tfilename = $filename,\n\tidProperty = $idMetadata\n}"
+    private fun determinePropertyName(getter: Method): String =
+            if (getter.name.startsWith("get")) {
+                getter.name.substring(3).decapitalize()
+            } else if (getter.name.startsWith("is")) {
+                getter.name.substring(2).decapitalize()
+            } else {
+                throw RuntimeException("unable to determine property name for $getter")
+            }
 
+    private fun determineSetter(): Method =
+            try {
+                getter.declaringClass.getDeclaredMethod("set" + propertyName.capitalize(),
+                        getter.returnType)
+            } catch (e: NoSuchMethodException) {
+                throw RuntimeException("no setter was found for property $propertyName, please add a setter")
+            }
+
+    override fun toString() = "{ propertyName=$propertyName }"
 
 }

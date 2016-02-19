@@ -54,10 +54,10 @@ public class JsonTable<E>(val metadata: JsonEntityMetadata, idGenerator: Long = 
     fun size(): Int = rows.size
 
     fun add(e: E): Boolean {
-        metadata.idProperty.call(e)?.let {
+        metadata.idMetadata.getter(e)?.let {
             throw RuntimeException("row with manual id should not be added: $it, call replace instead")
         }
-        metadata.idProperty.setter.call(e, nextId())
+        metadata.idMetadata.setter(e, nextId())
         return rows.add(e)
     }
 

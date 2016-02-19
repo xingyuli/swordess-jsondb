@@ -48,7 +48,7 @@ class JsonDB : DB {
         val metadata = database.getMetadata(entityType)
 
         val table = database[entityType]
-        return table.firstOrNull { id == metadata.idProperty.call(it) }
+        return table.firstOrNull { id == metadata.idMetadata.getter(it) }
     }
 
     override fun <T : Any> findAll(entityType: KClass<T>): List<T> =
@@ -56,10 +56,10 @@ class JsonDB : DB {
 
     override fun update(entity: Any) {
         val metadata = database.getMetadata(entity.javaClass.kotlin)
-        val id = metadata.idProperty.call(entity)
+        val id = metadata.idMetadata.getter(entity)
 
         val table = database[entity.javaClass.kotlin]
-        table.firstOrNull { id == metadata.idProperty.call(it) }?.let {
+        table.firstOrNull { id == metadata.idMetadata.getter(it) }?.let {
             table.replace(it, entity)
             database.persist(table)
         }
@@ -69,7 +69,7 @@ class JsonDB : DB {
         val metadata = database.getMetadata(entityType)
 
         val table = database[entityType]
-        table.firstOrNull { id == metadata.idProperty.call(it) }?.let {
+        table.firstOrNull { id == metadata.idMetadata.getter(it) }?.let {
             table.remove(it)
             database.persist(table)
         }

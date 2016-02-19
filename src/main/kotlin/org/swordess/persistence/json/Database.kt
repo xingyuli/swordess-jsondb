@@ -35,6 +35,7 @@ import org.swordess.common.lang.withoutSuffix
 import org.swordess.persistence.EntityMetadataManager
 import java.io.File
 import java.io.IOException
+import java.nio.charset.Charset
 import java.nio.file.StandardWatchEventKinds
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.locks.ReentrantReadWriteLock
@@ -44,8 +45,8 @@ import kotlin.reflect.KClass
 class Database {
 
     companion object {
-        @JvmStatic const val DEFAULT_CHARSET = "UTF-8"
-        @JvmStatic const val JSON_FILE_EXTENSION = ".json"
+        const val DEFAULT_CHARSET = "UTF-8"
+        const val JSON_FILE_EXTENSION = ".json"
     }
 
     private val logger = LoggerFactory.getLogger(javaClass)
@@ -71,7 +72,7 @@ class Database {
         watcher.addHandler({ evt ->
             val filenameWithoutExtension = evt.change.fileName.toString().withoutSuffix(JSON_FILE_EXTENSION)
             if (filenameWithoutExtension in filenameToTable) {
-                filenameToTable -= filenameWithoutExtension
+                filenameToTable.remove(filenameWithoutExtension)
                 logger.info("cache for {} has been discarded", evt.change)
             }
         })
@@ -95,7 +96,7 @@ class Database {
 
     private fun <T> load(metadata: JsonEntityMetadata): JsonTable<T> {
         lockFor(metadata.belongingClass.java).readLock().withLock {
-            resourceNameOf(metadata).resourceNameAsStream().reader(charset).use { reader ->
+            resourceNameOf(metadata).resourceNameAsStream().reader(Charset.forName(charset)).use { reader ->
                 val content = try {
                     gson.fromJson(reader, JsonObject::class.java)
                 } catch (e: IOException) {
@@ -118,7 +119,7 @@ class Database {
         // 3. the next call for this table needs a fresh loading
         lockFor(table.metadata.belongingClass.java).writeLock().withLock {
             val outFile = File(resourceNameOf(table.metadata).resourceNameAsFileAbsolutePath())
-            outFile.outputStream().writer(charset).use { writer -> gson.toJson(table.asTransfer(), writer) }
+            outFile.outputStream().writer(Charset.forName(charset)).use { writer -> gson.toJson(table.asTransfer(), writer) }
         }
     }
 

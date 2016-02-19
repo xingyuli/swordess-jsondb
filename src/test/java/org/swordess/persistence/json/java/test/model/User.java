@@ -22,27 +22,41 @@
  * SOFTWARE.
  */
 
-package org.swordess.persistence.json
+package org.swordess.persistence.json.java.test.model;
 
-import org.swordess.persistence.EntityMetadata
-import org.swordess.persistence.Id
-import kotlin.reflect.KClass
+import org.swordess.persistence.Id;
+import org.swordess.persistence.json.JsonEntity;
 
-class JsonEntityMetadata(override val belongingClass: KClass<*>) : EntityMetadata(belongingClass) {
+@JsonEntity(filename = "user")
+public class User {
 
-    val filename = determineFilename(belongingClass)
-    val idMetadata = determineIdMetadata(belongingClass)
+    private Long id;
+    private String username;
+    private Integer age;
 
-    private fun determineFilename(belongingClass: KClass<*>): String =
-            belongingClass.java.getAnnotation(JsonEntity::class.java).filename
-
-    private fun determineIdMetadata(belongingClass: KClass<*>): IdMetadata {
-        val idGetter = belongingClass.java.methods.firstOrNull { it.isAnnotationPresent(Id::class.java) }
-                ?: throw RuntimeException("Annotation of type ${Id::class.java.name} should present at least once in ${belongingClass.java.name}")
-        return IdMetadata(idGetter)
+    @Id
+    public Long getId() {
+        return id;
     }
 
-    override fun toString() = "{\n\tfilename = $filename,\n\tidProperty = $idMetadata\n}"
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 
 }
