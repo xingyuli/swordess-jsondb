@@ -8,14 +8,15 @@ Persistence library including basic CRUD operations using json.
 
 ### Before reaching 1.0.0.RELEASE, I planned to
 
-- ensure 100% usability in Java by test cases written in Java
-According to current testing status, I've already found some issues relate to Kotlin reflection library, and report them to Kotlin team.
+- Feb 15, 2016 <del>wait until Kotlin's 1.0 release</del>
+
+- Feb 20, 2016 <del>ensure 100% usability in Java by test cases written in Java</del>
+
+<del>According to current testing status, I've already found some issues relate to Kotlin reflection library, and report them to Kotlin team.</del>
 
 - improve unit test coverage to at least 95%
 
 - completing documentation here
-
-- and wait until Kotlin's 1.0 release
 
 ## License
 
