@@ -35,6 +35,12 @@ public class JsonEntityMetadataTest {
 
     @Test
     public void testExceptionShouldBeThrownIfGetterForIdIsNeitherPrefixedWithGetNorIs() {
+        JsonEntityMetadata userMeta = new JsonEntityMetadata(JvmClassMappingKt.getKotlinClass(org.swordess.persistence.json.java.test.model.User.class));
+        assertEquals("id", userMeta.getIdMetadata().getPropertyName());
+
+        JsonEntityMetadata groupMeta = new JsonEntityMetadata(JvmClassMappingKt.getKotlinClass(org.swordess.persistence.json.java.test.model.Group.class));
+        assertEquals("id", groupMeta.getIdMetadata().getPropertyName());
+
         try {
             new JsonEntityMetadata(JvmClassMappingKt.getKotlinClass(Group.class));
             fail("exception expected");

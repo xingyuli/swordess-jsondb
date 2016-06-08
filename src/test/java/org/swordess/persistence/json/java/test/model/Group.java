@@ -7,6 +7,7 @@ import org.swordess.persistence.json.JsonEntity;
 public class Group {
 
     private Long id;
+    private String name;
 
     @Id
     public Long isId() {
@@ -15,6 +16,14 @@ public class Group {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
 }
