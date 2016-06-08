@@ -6,7 +6,12 @@ Persistence library including basic CRUD operations using json.
 [![VersionEye](https://www.versioneye.com/user/projects/575741ed7757a00041b3aba1/badge.svg)](https://www.versioneye.com/user/projects/575741ed7757a00041b3aba1?child=summary)
 [![Semantic Version](https://img.shields.io/sem%20ver/v2.0.0.png)](http://semver.org/spec/v2.0.0.html)
 
-### Before reaching 1.0.0.RELEASE, I planned to
+## Eventually, we reach the **1.0.0**!
+
+// TODO documentation here
+
+
+### What have been done before reaching 1.0.0
 
 - Feb 15, 2016 <del>wait until Kotlin's 1.0 release</del>
 
@@ -14,9 +19,8 @@ Persistence library including basic CRUD operations using json.
 
 <del>According to current testing status, I've already found some issues relate to Kotlin reflection library, and report them to Kotlin team.</del>
 
-- improve unit test coverage to at least 95%
+- Jun 8, 2016 <del>improve unit test coverage to at least 95%</del>
 
-- completing documentation here
 
 ## License
 
