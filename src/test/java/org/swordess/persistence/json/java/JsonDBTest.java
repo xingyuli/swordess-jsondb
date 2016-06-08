@@ -33,6 +33,7 @@ import org.swordess.persistence.EntityMetadataManager;
 import org.swordess.persistence.json.Database;
 import org.swordess.persistence.json.JsonDB;
 import org.swordess.persistence.json.JsonEntity;
+import org.swordess.persistence.json.java.test.model.Group;
 import org.swordess.persistence.json.java.test.model.User;
 
 import java.io.File;
@@ -107,6 +108,24 @@ public class JsonDBTest {
     public void tearDown() {
         jsondb.database.destroy();
         cleanDestinationData();
+    }
+
+    @Test
+    public void testSaveToEmptyFile() throws IOException {
+        Group group = new Group();
+        group.setName("hands-on");
+        jsondb.save(group);
+
+        String expected = "{\n" +
+                "  \"idGenerator\": 2,\n" +
+                "  \"rows\": [\n" +
+                "    {\n" +
+                "      \"id\": 1,\n" +
+                "      \"name\": \"hands-on\"\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}";
+        assertEquals(expected, dataFileContent(Group.class));
     }
 
     @Test
